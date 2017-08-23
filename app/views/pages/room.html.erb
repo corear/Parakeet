@@ -75,7 +75,7 @@
 <% end %>
 
 
-<div style="margin-top:65px;padding:10px;" id="maind">
+<div style="margin-top:10px;padding:10px;" id="maind">
   <% for @m in @messages %>
 <% if @m.user_id != current_user.id %>
           <div class="row panel">
@@ -156,16 +156,6 @@ function readCookie(name) {
     return null;
 }
 
-function executeQuery() {
-  $.ajax({
-    //url: '/index',
-    success: function(data) {
-      $('#maind').load('/app/controllers/pages_controller/room #maind')
-    }
-  });
-  setTimeout(executeQuery, 5000);
-}
-
         $(document).ready(function(){
           var cook = readCookie("<%= @room.title %>")
           if (cook !== null) {
@@ -174,6 +164,5 @@ function executeQuery() {
           }
           
           
-  setTimeout(executeQuery, 500);
 });
         </script>
