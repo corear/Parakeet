@@ -1,0 +1,62 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body {
+    background-color: rgba(212, 216, 212, 0.25);
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif
+}
+
+.turbolinks-progress-bar{
+    background-color:#1ac9c9;
+}
+
+.post-container{
+    border-radius:10px;
+    padding:20px;
+    overflow:hidden;
+    margin-bottom:30px;
+    background-color:#eaeaea;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.noOutline:hover{
+    outline:none;
+}
+
+.noOutline:active{
+    outline:none;
+}
+
+.noOutline:focus{
+    outline:none;
+}
+
+.btn-secondary{
+    background-color:white;
+    border-radius:10px;
+}
+
+.btn-primary{
+    background-color:#5aaab4;
+    border:1px solid #4e959e;
+    padding:10px;
+}
+
+.btn-primary:hover{
+    background-color:#4e959e;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+}
+
+a:hover{
+    cursor:pointer;
+    color:white;
+}

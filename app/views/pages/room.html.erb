@@ -1,0 +1,186 @@
+<%= render '/components/nav' %>
+<script src="/app/assets/javascripts/passwordCheck.js"></script>
+
+<style>
+    
+    h1{
+        font-weight: 700;
+    }
+    
+    p{
+      margin-bottom:10px;
+    }
+    
+    .field{
+      padding:10px;
+      border-radius:8px;
+      width:300px;
+      margin:20px;
+    }
+    
+    .field1{
+      border:none;
+      padding:10px;
+      width:100%;
+      border-radius:5px;
+      text-align:center;
+      margin-bottom:20px;
+    }
+    
+    .field1:focus{
+      text-align:left;
+      outline:none;
+    }
+    
+    </style>
+    
+    
+<center style="margin-top:200px;" id="lol">
+    <h1>Enter the password for this room</h1>
+<div class="field" id="but" title="<%= @room.title %>">
+  <input type="password" id="pass" onkeypress="return runScript2(event)" autofocus="true" class="field1"/><br>
+<button class="btn btn-primary"  onclick="func()">SUBMIT</button>
+</div>
+</center>
+
+
+
+<div class="container" style="display:none" id="mainDiv">
+
+<center><h1>Room:</h1><h1 style="background-color:#eaeaea;border-radius:10px;padding:10px;padding-right:20px;padding-left:20px;color:#71bfec"><%= @room.title %></h1></center>
+
+<%= form_for(@newMessage) do |f| %>
+<div class="panel-body row">
+  <div class="col-md-10">
+    <%= f.text_field :content, autofocus: true, :class => "noOutline", :style => "
+    resize:none;
+    width: 100%;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Montserrat';
+" %>
+<%= f.file_field :picture, :style => "margin-top:10px;" %>
+  </div>
+
+  <div class="col-md-2">
+    <%= f.submit "SEND", :class => "btn btn-primary", :style => "
+    height: 40px;
+    width: 100%;
+" %>
+  </div>
+  </div>
+<% end %>
+
+
+<div class="row" style="margin-top:65px;" id="maind">
+  <% for @m in @messages %>
+<% if @m.user_id != current_user.id %>
+          <div class="row" style="margin-top:-45px;padding:10px;">
+              <div class="col-sm-7">
+                  <center><span class="helper"></span><p style="width: 70px;height: 70px;border-radius: 50%;background-color:#eaeaea;font-size: 2em;font-weight: 300;line-height: 70px;font-family: 'Helvetica Neue'; vertical-align:middle"><%= User.find(@m.user_id).display_name[0].chr %></p></center>
+                    <div class="post-container" style="padding-top:30px;margin-top:-45px;background-color:#eaeaea">
+                      <p style="line-height: 25px;letter-spacing: .4px;font-size:1.05em;text-align:right;padding-left:20px;padding-right:20px;" id="textboc<%= @m.id %>"></p>
+                      <script>
+                        var val = "<%= @m.content.html_safe %>"
+                      var bl = null;
+                      for (var i in map) {
+                       var regex = new RegExp(escapeSpecialChars(i), 'gim');
+                        bl = val = val.replace(regex, map[i]);
+                       }
+                        var i = "<%= @m.id %>"
+                        document.getElementById("textboc" + i).innerHTML = urlify(val)
+                      </script>
+                    </div>
+                  <p style="font-size: .8em;text-align: center;padding:10px;padding-left:20px;padding-right: 20px;margin-top: 30px;margin-bottom:40px;margin-left:15px;border-radius:10px;background-color:#eaeaea"><%= distance_of_time_in_words(@m.created_at,Time.now) %> ago</p>
+              </div>
+              
+              <div class="col-sm-5">
+                <% if @m.picture_file_name != nil %>
+                  <center><a href="<%= @m.picture.url %>"><%= image_tag @m.picture.url(:thumb), :style => "border-radius:10px;background-color:#eaeaea;margin-top:45px;float:left;margin-right:10px;" %></a></center>
+                <% end %>
+              </div>
+          </div>
+              
+              
+              <% else %>
+              
+              
+              <div class="row" style="margin-top:-45px;padding:10px;">
+                <div class="col-sm-5">
+                  <% if @m.picture_file_name != nil %>
+                    <center><a href="<%= @m.picture.url %>"><%= image_tag @m.picture.url(:thumb), :style => "border-radius:10px;background-color:#eaeaea;margin-top:45px;float:right;margin-left:10px;" %></a></center>
+                  <% end %>
+                </div>
+              <div class="col-sm-7">
+                  <center><span class="helper"></span><p style="color:white;width: 70px;height: 70px;border-radius: 50%;background-color:#71bfec;font-size: 2em;font-weight: 300;line-height: 70px;font-family: 'Helvetica Neue'; vertical-align:middle"><%= User.find(@m.user_id).display_name[0].chr %></p></center>
+              <div class="post-container" style="padding-top:30px;margin-top:-45px;background-color:#71bfec">
+                <p style="line-height: 25px;letter-spacing: .4px;font-size:1.05em;text-align:right;padding-left:20px;padding-right:20px;color:white;" id="textboc<%= @m.id %>"></p>
+                      <script>
+                        var val = "<%= @m.content.html_safe %>"
+                      var bl = null;
+                      for (var i in map) {
+                       var regex = new RegExp(escapeSpecialChars(i), 'gim');
+                        bl = val = val.replace(regex, map[i]);
+                       }
+                        var i = "<%= @m.id %>"
+                        document.getElementById("textboc" + i).innerHTML = urlify(val)
+                      </script>
+              </div>
+              </div>
+              <div class="row">
+                
+                <div class="col-sm-9">
+                  
+                </div>
+                <div class="col-sm-3">
+                  <p style="font-size: .8em;text-align: center;padding:10px;padding-left:20px;padding-right: 20px;margin-top: -10px;margin-bottom:40px;margin-right:15px;border-radius:10px;background-color:#71bfec;color:white"><%= distance_of_time_in_words(@m.created_at,Time.now) %> ago</p>
+                </div>
+                
+                </div>
+                
+                
+              </div>
+              <% end %>
+<% end %>
+<div id="cor" title="<%= @room.password %>"></div>
+</div>
+
+</div>
+
+<script>
+  document.title = "Parakeet | <%= @room.title %>"
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+function executeQuery() {
+  $.ajax({
+    //url: '/index',
+    success: function(data) {
+      $('#maind').load('/app/controllers/pages_controller/room #maind')
+    }
+  });
+  setTimeout(executeQuery, 5000);
+}
+
+        $(document).ready(function(){
+          var cook = readCookie("<%= @room.title %>")
+          if (cook !== null) {
+            document.getElementById("lol").style.display = 'none';
+            document.getElementById("mainDiv").style.display = "block";
+          }
+          
+          
+  setTimeout(executeQuery, 500);
+});
+        </script>
