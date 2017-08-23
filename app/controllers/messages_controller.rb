@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
     end
     
     def create
-        url = "https://parakeet-corear.c9users.io/room/2"
+        url = request.referrer
         uri = URI::parse(url)
         id = uri.path.split('/')[2]
         @message = Message.new(room_params)
