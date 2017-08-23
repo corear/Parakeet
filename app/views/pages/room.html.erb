@@ -75,10 +75,10 @@
 <% end %>
 
 
-<div class="row" style="margin-top:65px;" id="maind">
+<div style="margin-top:65px;padding:10px;" id="maind">
   <% for @m in @messages %>
 <% if @m.user_id != current_user.id %>
-          <div class="row" style="margin-top:-45px;padding:10px;">
+          <div class="row panel">
               <div class="col-sm-7">
                   <center><span class="helper"></span><p style="width: 70px;height: 70px;border-radius: 50%;background-color:#eaeaea;font-size: 2em;font-weight: 300;line-height: 70px;font-family: 'Helvetica Neue'; vertical-align:middle"><%= User.find(@m.user_id).display_name[0].chr %></p></center>
                     <div class="post-container" style="padding-top:30px;margin-top:-45px;background-color:#eaeaea">
@@ -94,12 +94,12 @@
                         document.getElementById("textboc" + i).innerHTML = urlify(val)
                       </script>
                     </div>
-                  <p style="font-size: .8em;text-align: center;padding:10px;padding-left:20px;padding-right: 20px;margin-top: 30px;margin-bottom:40px;margin-left:15px;border-radius:10px;background-color:#eaeaea"><%= distance_of_time_in_words(@m.created_at,Time.now) %> ago</p>
+                  <p style="font-size: .8em;text-align: center;padding:10px;padding-left:20px;padding-right: 20px;margin-top: -10px;border-radius:10px;background-color:#eaeaea"><%= distance_of_time_in_words(@m.created_at,Time.now) %> ago</p>
               </div>
               
               <div class="col-sm-5">
                 <% if @m.picture_file_name != nil %>
-                  <center><a href="<%= @m.picture.url %>"><%= image_tag @m.picture.url(:thumb), :style => "border-radius:10px;background-color:#eaeaea;margin-top:45px;float:left;margin-right:10px;" %></a></center>
+                  <center><a href="<%= @m.picture.url %>"><%= image_tag @m.picture.url(:thumb), :style => "border-radius:10px;background-color:#eaeaea;margin-top:45px;float:left;" %></a></center>
                 <% end %>
               </div>
           </div>
@@ -107,17 +107,18 @@
               
               <% else %>
               
+             <div class="row panel">
+                
+              <div class="col-sm-5">
+                <% if @m.picture_file_name != nil %>
+                  <center><a href="<%= @m.picture.url %>"><%= image_tag @m.picture.url(:thumb), :style => "border-radius:10px;background-color:#eaeaea;margin-top:45px;float:right;margin-left:10px;" %></a></center>
+                <% end %>
+              </div>
               
-              <div class="row" style="margin-top:-45px;padding:10px;">
-                <div class="col-sm-5">
-                  <% if @m.picture_file_name != nil %>
-                    <center><a href="<%= @m.picture.url %>"><%= image_tag @m.picture.url(:thumb), :style => "border-radius:10px;background-color:#eaeaea;margin-top:45px;float:right;margin-left:10px;" %></a></center>
-                  <% end %>
-                </div>
               <div class="col-sm-7">
-                  <center><span class="helper"></span><p style="color:white;width: 70px;height: 70px;border-radius: 50%;background-color:#71bfec;font-size: 2em;font-weight: 300;line-height: 70px;font-family: 'Helvetica Neue'; vertical-align:middle"><%= User.find(@m.user_id).display_name[0].chr %></p></center>
-              <div class="post-container" style="padding-top:30px;margin-top:-45px;background-color:#71bfec">
-                <p style="line-height: 25px;letter-spacing: .4px;font-size:1.05em;text-align:right;padding-left:20px;padding-right:20px;color:white;" id="textboc<%= @m.id %>"></p>
+                  <center><span class="helper"></span><p style="width: 70px;height: 70px;border-radius: 50%;background-color:#71bfec;font-size: 2em;font-weight: 300;line-height: 70px;font-family: 'Helvetica Neue'; vertical-align:middle;color:white"><%= User.find(@m.user_id).display_name[0].chr %></p></center>
+                    <div class="post-container" style="padding-top:30px;margin-top:-45px;background-color:#71bfec">
+                      <p style="line-height: 25px;letter-spacing: .4px;font-size:1.05em;text-align:right;padding-left:20px;padding-right:20px;color:white;" id="textboc<%= @m.id %>"></p>
                       <script>
                         var val = "<%= @m.content.html_safe %>"
                       var bl = null;
@@ -128,21 +129,13 @@
                         var i = "<%= @m.id %>"
                         document.getElementById("textboc" + i).innerHTML = urlify(val)
                       </script>
+                    </div>
+                  <p style="font-size: .8em;text-align: center;padding:10px;padding-left:20px;padding-right: 20px;margin-top: -10px;border-radius:10px;background-color:#71bfec;color:white"><%= distance_of_time_in_words(@m.created_at,Time.now) %> ago</p>
               </div>
-              </div>
-              <div class="row">
-                
-                <div class="col-sm-9">
-                  
-                </div>
-                <div class="col-sm-3">
-                  <p style="font-size: .8em;text-align: center;padding:10px;padding-left:20px;padding-right: 20px;margin-top: -10px;margin-bottom:40px;margin-right:15px;border-radius:10px;background-color:#71bfec;color:white"><%= distance_of_time_in_words(@m.created_at,Time.now) %> ago</p>
-                </div>
-                
-                </div>
-                
-                
-              </div>
+              
+          </div>
+              
+              
               <% end %>
 <% end %>
 <div id="cor" title="<%= @room.password %>"></div>

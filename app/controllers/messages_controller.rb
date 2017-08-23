@@ -7,7 +7,8 @@ class MessagesController < ApplicationController
     def create
         url = "https://parakeet-corear.c9users.io/room/2"
         uri = URI::parse(url)
-        id = uri.path.split('/')[2]
+        id2 = uri.path.split('/')[2]
+        id = params[:id]
         @message = Message.new(room_params)
         @message.user_id = current_user.id
         @message.chatroom = id
