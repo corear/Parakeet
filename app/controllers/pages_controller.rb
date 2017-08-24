@@ -18,6 +18,6 @@ class PagesController < ApplicationController
     @users = User.all.order("updated_at DESC")
     @rooms = Chatroom.all.order("updated_at DESC")
     @messages = Message.all.order("updated_at DESC").take(100)
-    @mPics = Message.all.order("updated_at DESC").take(100)
+    @mPics = Message.all
   end
 end
