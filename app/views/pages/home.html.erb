@@ -32,6 +32,10 @@
     }
     
     </style>
+    
+    <% if !current_user %>
+    <script>window.location ="/users/sign_in"</script>
+    <% else %>
 
 <center>
   <div class="container" style="margin-top:100px;margin-bottom:100px;">
@@ -80,6 +84,7 @@
 
 </div>
 </center>
+    <% end %>
 
 <script>
   document.title="Parakeet | Home"

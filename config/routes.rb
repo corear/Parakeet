@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get 'home' => 'pages#home'
   
   get '/room/:id' => 'pages#room'
+  
+  get 'admin' => 'pages#admin'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

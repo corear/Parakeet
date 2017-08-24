@@ -33,7 +33,9 @@
     }
     
     </style>
-    
+        <% if !current_user %>
+    <script>window.location ="/users/sign_in"</script>
+    <% else %>
     
 <center style="margin-top:200px;" id="lol">
     <h1>Enter the password for this room</h1>
@@ -83,7 +85,7 @@
 </div>
 
 </div>
-
+<% end %>
 <script>
   document.title = "Parakeet | <%= @room.title %>"
 function readCookie(name) {
