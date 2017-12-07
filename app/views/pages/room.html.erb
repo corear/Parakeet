@@ -1,0 +1,111 @@
+<%= render '/components/nav' %>
+<script src="/app/assets/javascripts/passwordCheck.js"></script>
+
+<style>
+    
+    h1{
+        font-weight: 700;
+    }
+    
+    p{
+      margin-bottom:10px;
+    }
+    
+    .field{
+      padding:10px;
+      border-radius:8px;
+      width:300px;
+      margin:20px;
+    }
+    
+    .field1{
+      border:none;
+      padding:10px;
+      width:100%;
+      border-radius:5px;
+      text-align:center;
+      margin-bottom:20px;
+    }
+    
+    .field1:focus{
+      text-align:left;
+      outline:none;
+    }
+    
+    </style>
+        <% if !current_user %>
+    <script>window.location ="/users/sign_in"</script>
+    <% else %>
+    
+<center style="margin-top:200px;" id="lol">
+    <h1>Enter the password for this room</h1>
+<div class="field" id="but" title="<%= @room.title %>">
+  <input type="password" id="pass" onkeypress="return runScript2(event)" autofocus="true" class="field1"/><br>
+<button class="btn btn-primary"  onclick="func()">SUBMIT</button>
+</div>
+</center>
+
+
+
+<div class="container" style="display:none" id="mainDiv">
+
+<center><h1>Room:</h1><h1 style="background-color:#eaeaea;border-radius:10px;padding:10px;padding-right:20px;padding-left:20px;color:#71bfec"><%= @room.title %></h1></center>
+
+<%= form_for(@newMessage) do |f| %>
+<div class="panel-body row">
+  <div class="col-md-10">
+    <%= f.text_field :content, autofocus: true, :class => "noOutline", :style => "
+    resize:none;
+    width: 100%;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Montserrat';
+" %>
+<%= f.file_field :picture, :style => "margin-top:10px;" %>
+  </div>
+
+  <div class="col-md-2">
+    <%= f.submit "SEND", :class => "btn btn-primary", :style => "
+    height: 40px;
+    width: 100%;
+" %>
+  </div>
+  </div>
+<% end %>
+
+
+<div style="margin-top:10px;padding:10px;" id="maind">
+  <% for @m in @messages %>
+    <%= render '/components/message' %>
+<% end %>
+<div id="cor" title="<%= @room.password %>"></div>
+</div>
+
+</div>
+<% end %>
+<script>
+  document.title = "Parakeet | <%= @room.title %>"
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+        $(document).ready(function(){
+          var cook = readCookie("<%= @room.title %>")
+          if (cook !== null) {
+            document.getElementById("lol").style.display = 'none';
+            document.getElementById("mainDiv").style.display = "block";
+          }
+          
+          
+});
+        </script>

@@ -1,0 +1,107 @@
+<%= render '/components/nav' %>
+
+<% if current_user.id != 1 %>
+<center><h1>Oh noes!</h1>
+<p>You're not allowed in here!</p></center>
+<% else %>
+
+
+<center><h1>Alright, here's the dig:</h1>
+<h1 style="max-width:300px;border-radius:10px;color:white;background-color:#5ab3de;padding:10px;margin-top:50px;">USERS</h1>
+
+    <div class="row" style="background-color:white;border-radius:20px;padding:30px;width:50%;margin:20px;">
+        <% for @u in @users do %>
+            <div class="col-sm-12" style="background-color:#f5f5f5;margin:10px;border-radius:10px;padding:10px;padding-top:20px;">
+                <div class="col-sm-4">
+                <p style="border-radius:10px;color:white;background-color:#5ab3de;padding:20px;padding-top:10px;padding-bottom:10px;"><%= @u.email %></p>
+                </div>
+                <div class="col-sm-4" style="margin-top:10px;">
+                <p style="color:#656565"><%= @u.display_name %></p>
+                </div>
+                <div class="col-sm-4" style="margin-top:10px;">
+                <p style="color:#656565">Last login: <%= distance_of_time_in_words(@u.updated_at,Time.now) %> ago</p>
+                </div>
+                
+            </div>
+        <% end %>
+    </div>
+    
+    
+    <h1 style="max-width:300px;border-radius:10px;color:white;background-color:#5ab3de;padding:10px;margin-top:50px;">ROOMS</h1>
+
+    <div class="row" style="background-color:white;border-radius:20px;padding:30px;width:50%;margin:20px;">
+        <% for @room in @rooms do %>
+            <div class="col-sm-12" style="background-color:#f5f5f5;margin:10px;border-radius:10px;padding:10px;padding-top:20px;">
+                <div class="col-sm-4">
+                <a href="/room/<%= @room.id %>"><p style="border-radius:10px;color:white;background-color:#5ab3de;padding:20px;padding-top:10px;padding-bottom:10px;text-align:left;"><span style="border-radius:30px;color:#5ab3de;background-color:white;padding:8px;font-size:0.9em"><%= @room.id %></span>&nbsp;&nbsp;&nbsp;<%= @room.title %></p></a>
+                </div>
+                <div class="col-sm-4" style="margin-top:10px;">
+                <p style="color:#656565"><%= @room.password %></p>
+                </div>
+                <div class="col-sm-4" style="margin-top:10px;">
+                <p style="color:#656565">Created <%= distance_of_time_in_words(@room.created_at,Time.now) %> ago</p>
+                </div>
+                
+            </div>
+        <% end %>
+    </div>
+    
+    
+      <h1 style="max-width:300px;border-radius:10px;color:white;background-color:#5ab3de;padding:10px;margin-top:50px;">PICTURES</h1>
+
+    <div class="row" style="background-color:white;border-radius:20px;padding:30px;width:50%;margin:20px;margin-bottom:50px;">
+        <% for @m in @messages do %>
+            <% if @m.picture_file_name %>
+            <div class="col-sm-12" style="background-color:#f5f5f5;margin:10px;border-radius:10px;padding:10px;padding-top:20px;">
+                <div class="col-sm-4">
+                <p style="border-radius:10px;color:white;background-color:#5ab3de;padding:20px;padding-top:10px;padding-bottom:10px;"><%= User.find(@m.user_id).email %></p>
+                </div>
+                <div class="col-sm-4">
+                    <center>
+                        <a href="<%= @m.picture.url %>"><%= image_tag @m.picture.url(:thumb), :style => "border-radius:10px;background-color:#eaeaea;width:40px;height:40px;" %></a>
+                    </center>
+                </div>
+                <div class="col-sm-3" style="margin-top:10px;">
+                <p style="color:#656565"><%= distance_of_time_in_words(@m.created_at,Time.now) %> ago</p>
+                </div>
+                <div class="col-sm-1">
+                    <div style="background-color:#5ab3de;padding:10px;height:40px;width:40px;border-radius:50%;">
+                        <center><a href ="/room/<%= @m.chatroom %>"><p style="color:white"><%= @m.chatroom %></p></a></center>
+                    </div>
+                </div>
+            </div>
+            <% end %>
+        <% end %>
+    </div>
+    
+    
+    
+     <h1 style="max-width:300px;border-radius:10px;color:white;background-color:#5ab3de;padding:10px;margin-top:50px;">MESSAGES</h1>
+
+    <div class="row" style="background-color:white;border-radius:20px;padding:30px;width:50%;margin:20px;margin-bottom:50px;">
+        <% for @m in @messages do %>
+            <div class="col-sm-12" style="background-color:#f5f5f5;margin:10px;border-radius:10px;padding:10px;padding-top:20px;">
+                <div class="col-sm-4">
+                <p style="border-radius:10px;color:white;background-color:#5ab3de;padding:20px;padding-top:10px;padding-bottom:10px;"><%= User.find(@m.user_id).email %></p>
+                </div>
+                <div class="col-sm-4" style="margin-top:10px;">
+                <p style="color:#656565"><%= @m.content %></p>
+                </div>
+                <div class="col-sm-3" style="margin-top:10px;">
+                <p style="color:#656565"><%= distance_of_time_in_words(@m.created_at,Time.now) %> ago</p>
+                </div>
+                <div class="col-sm-1">
+                    <div style="background-color:#5ab3de;padding:10px;height:40px;width:40px;border-radius:50%;">
+                        <center><a href ="/room/<%= @m.chatroom %>"><p style="color:white"><%= @m.chatroom %></p></a></center>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+    
+    
+   
+    
+
+</center>
+<% end %>
