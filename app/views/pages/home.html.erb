@@ -24,11 +24,13 @@
       width:100%;
       border-radius:5px;
       text-align:center;
+      transition:all 0.2s ease;
     }
     
     .field1:focus{
       text-align:left;
       outline:none;
+      border-left:5px solid #405f86;
     }
     
     </style>
@@ -36,34 +38,48 @@
     <% if !current_user %>
     <script>window.location ="/users/sign_in"</script>
     <% else %>
+    <div class="container">
 
-<center>
-  <div class="container" style="margin-top:100px;margin-bottom:100px;">
-  <h1>Join an existing room</h1>
-    <div class="field">
-      <input placeholder="Enter room name" id="valu" class="field1" onkeypress="return runScript(event)" /><br>
-<button class="btn btn-primary" onclick="fi()" style="margin-top:20px;">JOIN ROOM</button>
+  <div class="row" style="margin-top:100px;margin-bottom:30px;">
+    <div class="col-md-3"></div>
+    <div class="col-md-6" style="padding:0;border-radius:3px;background:#416086; margin:0;height:200%;overflow:hidden;">
+      <div style="position:absolute;top:32px;left:32px;">
+      <img src="/ChatIcon.png" style="height:150px; display:inline;" />
+      </div>
+      <h1 style="color:white;padding:20px;padding-left:220px;padding-top:30px;">Join an existing room</h1>
+      <div style="background:white;height:1px;width:60%;margin:-10px 20px 50px 35%;"></div>
+      <h4 style="margin-top: -30px;width: 50%;margin-left: 38%;line-height: 30px;letter-spacing: 1px;color: white;">Enter the name of an existing room to join.</h4>
+        <div style="margin:0;margin-top:30px;background-color:#33485fc7">
+          <input placeholder="Enter room name" id="valu" class="field1" style="background: #2c3d50;border-radius: 3px;color: white;margin: 10px;margin-left: 15%;width: 50%;font-size: 1.5em;font-weight: 100;letter-spacing: 1px;margin-top:30px;" onkeypress="return runScript(event)" /><br>
+          <button class="btn btn-primary" onclick="fi()" style="border: none;font-size: 1.5em;border-radius: 3px;padding: 10px;letter-spacing: 1px;margin-top: -92px;margin-left: 67%;/* display: inline; */">JOIN <span class="glyphicon glyphicon-chevron-right"></span></button>
+        </div>
     </div>
-<br><h1>OR</h1><br>
-  <h1>Create a new room</h1>
+    <div class="col-md-3"></div>
+    </div>
+    
+    
+<center><br><h1 style="color:white;">OR</h1><br></center>
 
-<%= form_for(@newRoom) do |f| %>
-
-  <div class="field">
-    <p>Name of room</p>
-    <%= f.text_field :title, :class => "field1" %>
-  </div>
-  
-    <input type="password" name="password" id="password_fake" class="hidden" autocomplete="off" style="display: none;">
-  <div class="field">
-    <p>Password to room</p>
-    <%= f.password_field :password, :class => "field1" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "CREATE ROOM", :class => "btn btn-primary" %>
-  </div>
-<% end %>
+<div class="row" style="margin-top:30px;margin-bottom:100px;">
+    <div class="col-md-3"></div>
+    <div class="col-md-6" style="padding:0;border-radius:3px;background:#416086; margin:0;height:200%;overflow:hidden;">
+      <div style="position:absolute;top:32px;left:32px;">
+      <img src="/ChatIconAdd.png" style="height:150px; display:inline;" />
+      </div>
+      <h1 style="color:white;padding:20px;padding-left:220px;padding-top:30px;">Create a new room</h1>
+      <div style="background:white;height:1px;width:60%;margin:-10px 20px 50px 35%;"></div>
+      <h4 style="margin-top: -30px;width: 50%;margin-left: 38%;line-height: 30px;letter-spacing: 1px;color: white;">Create your own room using the room name and a password.</h4>
+        
+        <div style="margin:0;margin-top:30px;background-color:#33485fc7">
+          <%= form_for(@newRoom) do |f| %>
+          <%= f.text_field :title, :id => "txt", :class => "field1", :placeholder => "Enter room name", :style => "background: #2c3d50;border-radius: 3px;color:#fff;margin: 10px;margin-left: 15%;margin-top:30px;width: 50%;font-size: 1.5em;font-weight: 100;letter-spacing: 1px;" %>
+          <%= f.password_field :password, :id => "psw", :class => "field1", :placeholder => "Enter room password", :style => "background: #2c3d50;border-radius: 3px;color:#fff;margin: 10px;margin-left: 15%;width: 50%;font-size: 1.5em;font-weight: 100;letter-spacing: 1px;", onkeypress: "return runScript(event)" %>
+        <%= f.submit "CREATE", :class => "btn btn-primary", :onclick => "fi()", :style => "border: none;font-size: 1.5em;border-radius: 3px;padding: 10px;letter-spacing: 1px;padding-top:50px;padding-bottom:40px;margin-top: -162px;margin-left: 67%;/* display: inline; */" %>
+        <% end %>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+    </div>
 
 <div>
   <div>
@@ -83,9 +99,18 @@
 
 
 </div>
-</center>
+
+</div>
     <% end %>
 
 <script>
-  document.title="Parakeet | Home"
+  document.title="Home • Parakeet"
+  
+  function kk(){
+  setTimeout(function(){
+    document.getElementById("psw").value = ""
+    document.getElementById("txt").value = ""
+},100);}
+
+window.onload = kk
 </script>

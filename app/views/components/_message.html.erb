@@ -1,9 +1,13 @@
 <% if @m.user_id != current_user.id %>
           <div class="row panel">
+              <div class="col-sm-1">
+                  <center><a href="<%= User.find(@m.user_id).image.url(:original) %>"><%= image_tag User.find(@m.user_id).image.url(:medium), :class => "raised rounded", :style => "vertical-align:middle;height:70px;width:70px;position:relative;top:18px;margin-bottom:20px;" %></a></center>
+              </div>
               <div class="col-sm-7">
-                  <center><span class="helper"></span><p style="width: 70px;height: 70px;border-radius: 50%;background-color:#eaeaea;font-size: 2em;font-weight: 300;line-height: 70px;font-family: 'Helvetica Neue'; vertical-align:middle"><%= User.find(@m.user_id).display_name[0].chr %></p></center>
-                    <div class="post-container" style="padding-top:30px;margin-top:-45px;background-color:#eaeaea">
-                      <p style="line-height: 25px;letter-spacing: .4px;font-size:1.05em;text-align:right;padding-left:20px;padding-right:20px;" id="textboc<%= @m.id %>"></p>
+                    <div class="post-container" style="padding-top:30px;background-color:#b3b3b359">
+                       <p style="line-height: 25px;letter-spacing: .4px;font-size:1.05em;text-align: center;padding-left:20px;padding-right:20px;background-color: #282f38;margin-top: -20px;margin-left: -10px;margin-right: -10px;margin-bottom: 20px;border-radius: 5px;text-transform:uppercase;letter-spacing:1px;"><%= User.find(@m.user_id).display_name %></p>
+                  
+                      <p style="line-height: 25px;letter-spacing: .4px;font-size:1.05em;text-align:left;padding-left:20px;padding-right:20px;" id="textboc<%= @m.id %>"></p>
                       <script>
                         var val = "<%= @m.content.html_safe %>"
                       var bl = null;
@@ -14,13 +18,18 @@
                         var i = "<%= @m.id %>"
                         document.getElementById("textboc" + i).innerHTML = urlify(val)
                       </script>
+                       </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <p style="font-size:0.8em;text-align: center;padding:10px;padding-left:20px;padding-right: 20px;margin-top: -10px;border-radius:10px;background-color:#b3b3b359;color:white"><%= distance_of_time_in_words(@m.created_at,Time.now) %> ago</p>
+                      </div>
+                      <div class="col-sm-8"></div>
                     </div>
-                  <p style="font-size: .8em;text-align: center;padding:10px;padding-left:20px;padding-right: 20px;margin-top: -10px;border-radius:10px;background-color:#eaeaea"><%= distance_of_time_in_words(@m.created_at,Time.now) %> ago</p>
-              </div>
+                  </div>
               
-              <div class="col-sm-5">
+              <div class="col-sm-4">
                 <% if @m.picture_file_name != nil %>
-                  <center><a href="<%= @m.picture.url %>"><%= image_tag @m.picture.url(:thumb), :style => "border-radius:10px;background-color:#eaeaea;margin-top:45px;float:left;" %></a></center>
+                  <center><a href="<%= @m.picture.url %>"><%= image_tag @m.picture.url(:thumb), :style => "border-radius:10px;background-color:#eaeaea;float:left;" %></a></center>
                 <% end %>
               </div>
           </div>
@@ -30,15 +39,14 @@
               
              <div class="row panel">
                 
-              <div class="col-sm-5">
+              <div class="col-sm-4">
                 <% if @m.picture_file_name != nil %>
-                  <center><a href="<%= @m.picture.url %>"><%= image_tag @m.picture.url(:thumb), :style => "border-radius:10px;background-color:#eaeaea;margin-top:45px;float:right;margin-left:10px;" %></a></center>
+                  <center><a href="<%= @m.picture.url %>"><%= image_tag @m.picture.url(:thumb), :style => "border-radius:10px;background-color:#eaeaea;float:right;margin-left:10px;" %></a></center>
                 <% end %>
               </div>
               
               <div class="col-sm-7">
-                  <center><span class="helper"></span><p style="width: 70px;height: 70px;border-radius: 50%;background-color:#71bfec;font-size: 2em;font-weight: 300;line-height: 70px;font-family: 'Helvetica Neue'; vertical-align:middle;color:white"><%= User.find(@m.user_id).display_name[0].chr %></p></center>
-                    <div class="post-container" style="padding-top:30px;margin-top:-45px;background-color:#71bfec">
+                    <div class="post-container" style="padding-top:30px;background-color:#405975">
                       <p style="line-height: 25px;letter-spacing: .4px;font-size:1.05em;text-align:right;padding-left:20px;padding-right:20px;color:white;" id="textboc<%= @m.id %>"></p>
                       <script>
                         var val = "<%= @m.content.html_safe %>"
@@ -51,7 +59,15 @@
                         document.getElementById("textboc" + i).innerHTML = urlify(val)
                       </script>
                     </div>
-                  <p style="font-size: .8em;text-align: center;padding:10px;padding-left:20px;padding-right: 20px;margin-top: -10px;border-radius:10px;background-color:#71bfec;color:white"><%= distance_of_time_in_words(@m.created_at,Time.now) %> ago</p>
+                    <div class="row">
+                      <div class="col-sm-8"></div>
+                      <div class="col-sm-4">
+                        <p style="font-size: .8em;text-align: center;padding:10px;padding-left:20px;padding-right: 20px;margin-top: -10px;border-radius:10px;background-color:#405975;color:white"><%= distance_of_time_in_words(@m.created_at,Time.now) %> ago</p>
+                      </div>
+                    </div>
+                                </div>
+              <div class="col-sm-1">
+                  <center><a href="<%= current_user.image.url(:original) %>"><%= image_tag current_user.image.url(:medium), :class => "raised rounded", :style => "vertical-align:middle;height:70px;position:relative;top:10px;" %></a></center>
               </div>
               
           </div>

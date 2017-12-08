@@ -49,11 +49,12 @@
 
 <div class="container" style="display:none" id="mainDiv">
 
-<center><h1>Room:</h1><h1 style="background-color:#eaeaea;border-radius:10px;padding:10px;padding-right:20px;padding-left:20px;color:#71bfec"><%= @room.title %></h1></center>
+<center><h1 style="background-color: #33485f;border-radius:10px;padding: 20px;padding-right:20px;padding-left:20px;color: #ccc;margin-top: -20px;border-top-left-radius: 0;border-top-right-radius: 0;letter-spacing: 1px; border-bottom:2px solid #ccc; border-left: 2px solid #ccc; border-right: 2px solid #ccc;"><%= @room.title %></h1></center>
 
 <%= form_for(@newMessage) do |f| %>
-<div class="panel-body row">
-  <div class="col-md-10">
+<div class="panel-body row" style="background-color: #33485f; border-radius: 5px;  padding-left: 0px; padding-right: 0; margin-left: 5px; margin-right: 5px; margin-top: -10px; border-top-left-radius: 0; border-top-right-radius: 0; padding-bottom: 20px;">
+  <div class="col-md-3"></div>
+  <div class="col-md-4">
     <%= f.text_field :content, autofocus: true, :class => "noOutline", :style => "
     resize:none;
     width: 100%;
@@ -61,23 +62,30 @@
     padding-left: 20px;
     padding-right: 20px;
     border: none;
-    border-radius: 10px;
-    font-family: 'Montserrat';
+    border-radius: 5px;
+    color: #2c3d50;
+    margin-top: 10px;
 " %>
-<%= f.file_field :picture, :style => "margin-top:10px;" %>
+
   </div>
 
   <div class="col-md-2">
     <%= f.submit "SEND", :class => "btn btn-primary", :style => "
     height: 40px;
     width: 100%;
+    margin-top: 10px;
 " %>
   </div>
+  <div class="col-md-3"></div>
+  <center>
+  <%= f.file_field :picture, :style => "padding-top:20px;line-height:0px;", :accept => "image/*" %>
+  </center>
   </div>
+  
 <% end %>
 
 
-<div style="margin-top:10px;padding:10px;" id="maind">
+<div style="margin-top:40px;padding:10px;" id="maind">
   <% for @m in @messages %>
     <%= render '/components/message' %>
 <% end %>
@@ -87,7 +95,7 @@
 </div>
 <% end %>
 <script>
-  document.title = "Parakeet | <%= @room.title %>"
+  document.title = "<%= @room.title %> • Parakeet"
 function readCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
