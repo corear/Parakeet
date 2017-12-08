@@ -29,7 +29,7 @@
               
               <div class="col-sm-4">
                 <% if @m.picture_file_name != nil %>
-                  <center><a href="<%= @m.picture.url %>"><%= image_tag @m.picture.url(:thumb), :style => "border-radius:10px;background-color:#eaeaea;float:left;" %></a></center>
+                  <center><a href="<%= @m.picture.url %>"><%= image_tag @m.picture.url(:thumb), :style => "border-radius:10px;background-color:#eaeaea;float:left;margin-top:5px;" %></a></center>
                 <% end %>
               </div>
           </div>
